@@ -15,7 +15,7 @@ import no.statkart.matrikkel.matrikkelapi.wsapi.v1.service.adresse.AdresseServic
 import no.statkart.matrikkel.matrikkelapi.wsapi.v1.service.adresse.ServiceException;
 import no.statkart.matrikkel.matrikkelapi.wsapi.v1.service.store.StoreService;
 import no.xcello.matrikkel.core.*;
-import no.xcello.matrikkel.core.Seksjon;
+import no.xcello.matrikkel.core.Section;
 import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,11 +38,11 @@ class MatrikkelWebServiceClient {
         this.context = context;
     }
 
-    private static Brøk getFraction(Eierforhold e) {
+    private static Fraction getFraction(Eierforhold e) {
         return switch (e) {
             case TinglystEierforhold t -> transformBrøk(t.getAndel());
             case IkkeTinglystEierforhold t -> transformBrøk(t.getAndel());
-            case Kontaktinstans t -> Brøk.ALT;
+            case Kontaktinstans t -> Fraction.ALT;
             default -> throw new IllegalStateException("Unexpected value: " + e);
         };
     }
@@ -64,12 +64,12 @@ class MatrikkelWebServiceClient {
         );
     }
 
-    private static Brøk transformBrøk(Andel andel) {
-        return new Brøk(andel.getTeller(), andel.getNevner());
+    private static Fraction transformBrøk(Andel andel) {
+        return new Fraction(andel.getTeller(), andel.getNevner());
     }
 
-    List<Seksjon> hentSeksjoner(Adresse adresse) {
-        final AdresseId adresseId = getAdresseId(adresse);
+    List<Section> listSectionsByAddress(Address address) {
+        final AdresseId adresseId = getAdresseId(address);
         final AdresseInfoTransfer info = getAdresseInfoTransfer(adresseId);
 
         for (Object o : info.getBubbleObjects().getItem()) {
@@ -85,17 +85,17 @@ class MatrikkelWebServiceClient {
         }
 
 
-        List<Seksjon> seksjoner = filterSections(info);
-        seksjoner.sort(Comparator.comparing(Seksjon::nummer));
-        log.info("Finn seksjoner for adresse: {}", adresse);
-        for (Seksjon s : seksjoner) {
+        List<Section> seksjoner = filterSections(info);
+        seksjoner.sort(Comparator.comparing(Section::nummer));
+        log.info("Finn seksjoner for adresse: {}", address);
+        for (Section s : seksjoner) {
             log.info("Fant seksjon: {}", s);
         }
         return seksjoner;
     }
 
-    private List<Seksjon> filterSections(AdresseInfoTransfer info) {
-        List<Seksjon> out = new ArrayList<>();
+    private List<Section> filterSections(AdresseInfoTransfer info) {
+        List<Section> out = new ArrayList<>();
 
         Map<Long, Bruksenhet> bs = new HashMap<>();
         Map<Long, no.statkart.matrikkel.matrikkelapi.wsapi.v1.domain.matrikkelenhet.Seksjon> ss = new HashMap<>();
@@ -113,7 +113,7 @@ class MatrikkelWebServiceClient {
         for (no.statkart.matrikkel.matrikkelapi.wsapi.v1.domain.matrikkelenhet.Seksjon s : ss.values()) {
             final long id = s.getId().getValue();
             final Bruksenhet b = bs.get(id);
-            out.add(new Seksjon(
+            out.add(new Section(
                     s.getMatrikkelnummer().getSeksjonsnummer(),
                     transformBrøk(s.getSameiebrok()),
                     transformEierforhold(s.getEierforhold().getItem()),
@@ -142,7 +142,7 @@ class MatrikkelWebServiceClient {
      * Viss eier kun har hjemmel til festerett, så filtrer vekk hjemmelshaver for eiendomsrett.
      * Vi antar at det er det er koden av høyest verdi som er reel eier.
      */
-    private List<Eier> transformEierforhold(List<Eierforhold> liste) {
+    private List<Owner> transformEierforhold(List<Eierforhold> liste) {
 
         final long max = liste.stream()
                 .map(e -> e.getEierforholdKodeId().getValue())
@@ -156,8 +156,8 @@ class MatrikkelWebServiceClient {
                 .toList();
     }
 
-    private Eier transformEierforhold(Eierforhold e) {
-        return new Eier(
+    private Owner transformEierforhold(Eierforhold e) {
+        return new Owner(
                 getDate(e),
                 getFraction(e),
                 getPerson(e)
@@ -193,7 +193,7 @@ class MatrikkelWebServiceClient {
         }
     }
 
-    private AdresseId getAdresseId(Adresse address) {
+    private AdresseId getAdresseId(Address address) {
         try {
             KommuneIdent bergen = new KommuneIdent();
             bergen.setKommunenummer(address.kommunenummer());

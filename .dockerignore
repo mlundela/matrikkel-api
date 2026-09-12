@@ -1,0 +1,22 @@
+# Secrets: mirrors .gitignore. A baked-in credentials file is visible to anyone
+# who can pull the image, so this exclusion must stay.
+src/main/resources/matrikkel.properties
+
+# Build output - the image builds the jar itself.
+target/
+
+# VCS and CI
+.git/
+.gitignore
+.github/
+
+# IDE / OS
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.DS_Store
+
+# Docs
+*.md

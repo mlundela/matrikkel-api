@@ -1,6 +1,6 @@
 package no.xcello.matrikkel;
 
-import no.xcello.matrikkel.core.Adresse;
+import no.xcello.matrikkel.core.Address;
 import no.xcello.matrikkel.model.SearchResult;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
@@ -18,7 +18,7 @@ class MatrikkelSearchClient {
         client = RestClient.builder().build();
     }
 
-    List<Adresse> search(String query, int treffPerSide) {
+    List<Address> search(String query, int treffPerSide) {
         final URI uri = UriComponentsBuilder
                 .fromUri(URI.create("https://ws.geonorge.no/adresser/v1/sok"))
                 .queryParam("sok", query)
@@ -39,8 +39,8 @@ class MatrikkelSearchClient {
                 .toList();
     }
 
-    Adresse transform(no.xcello.matrikkel.model.Adresse a) {
-        return new Adresse(
+    Address transform(no.xcello.matrikkel.model.Adresse a) {
+        return new Address(
                 a.postalName(),
                 a.postalNumber(),
                 a.name(),

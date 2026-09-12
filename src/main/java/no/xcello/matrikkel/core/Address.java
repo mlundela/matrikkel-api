@@ -1,6 +1,6 @@
 package no.xcello.matrikkel.core;
 
-public record Adresse(
+public record Address(
         String postadresse,
         String postnummer,
         String navn,

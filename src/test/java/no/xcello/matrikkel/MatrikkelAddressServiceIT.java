@@ -1,7 +1,7 @@
 package no.xcello.matrikkel;
 
-import no.xcello.matrikkel.core.Adresse;
-import no.xcello.matrikkel.core.Seksjon;
+import no.xcello.matrikkel.core.Address;
+import no.xcello.matrikkel.core.Section;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,9 +22,9 @@ class MatrikkelAddressServiceIT {
 
     @Test
     void name() {
-        final List<Adresse> searchResult = service.search("Dokkeveien 1A", 5);
+        final List<Address> searchResult = service.search("Dokkeveien 1A", 5);
         assertThat(searchResult).isNotEmpty();
-        final List<Seksjon> units = service.getSeksjoner(searchResult.getFirst());
+        final List<Section> units = service.listSections(searchResult.getFirst());
         assertThat(units).isNotEmpty();
     }
 }

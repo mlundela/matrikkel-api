@@ -1,8 +1,8 @@
 package no.xcello.matrikkel.core;
 
-public record Brøk(long teller, long nevner) {
+public record Fraction(long teller, long nevner) {
 
-    public static final Brøk ALT = new Brøk(1, 1);
+    public static final Fraction ALT = new Fraction(1, 1);
 
     @Override
     public String toString() {

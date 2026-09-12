@@ -1,14 +1,13 @@
 package no.xcello.matrikkel;
 
-import no.xcello.matrikkel.core.Adresse;
-import no.xcello.matrikkel.core.AdresseService;
-import no.xcello.matrikkel.core.Seksjon;
-import org.springframework.stereotype.Service;
+import no.xcello.matrikkel.core.Address;
+import no.xcello.matrikkel.core.Service;
+import no.xcello.matrikkel.core.Section;
 
 import java.util.List;
 
-@Service
-public class MatrikkelAddressService implements AdresseService {
+@org.springframework.stereotype.Service
+public class MatrikkelAddressService implements Service {
 
     private final MatrikkelSearchClient searchClient;
     private final MatrikkelWebServiceClient webServiceClient;
@@ -19,12 +18,12 @@ public class MatrikkelAddressService implements AdresseService {
     }
 
     @Override
-    public List<Adresse> search(String query, int treffPerSide) {
-        return searchClient.search(query, treffPerSide);
+    public List<Address> search(String query, int maxHits) {
+        return searchClient.search(query, maxHits);
     }
 
     @Override
-    public List<Seksjon> getSeksjoner(Adresse address) {
-        return webServiceClient.hentSeksjoner(address);
+    public List<Section> listSections(Address address) {
+        return webServiceClient.listSectionsByAddress(address);
     }
 }
