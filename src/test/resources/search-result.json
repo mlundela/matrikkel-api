@@ -1,0 +1,82 @@
+{
+  "metadata": {
+    "treffPerSide": 10,
+    "sokeStreng": "sok=dokkeveien%201",
+    "asciiKompatibel": true,
+    "side": 0,
+    "viserFra": 0,
+    "totaltAntallTreff": 2,
+    "viserTil": 10
+  },
+  "adresser": [
+    {
+      "adressenavn": "Dokkeveien",
+      "adressetekst": "Dokkeveien 1",
+      "adressetilleggsnavn": null,
+      "adressekode": 10900,
+      "nummer": 1,
+      "bokstav": "",
+      "kommunenummer": "4601",
+      "kommunenavn": "BERGEN",
+      "gardsnummer": 164,
+      "bruksnummer": 201,
+      "festenummer": 0,
+      "undernummer": null,
+      "bruksenhetsnummer": [
+        "H0101",
+        "H0102",
+        "H0103",
+        "H0104",
+        "H0201",
+        "H0301"
+      ],
+      "objtype": "Vegadresse",
+      "poststed": "BERGEN",
+      "postnummer": "5007",
+      "adressetekstutenadressetilleggsnavn": "Dokkeveien 1",
+      "stedfestingverifisert": false,
+      "representasjonspunkt": {
+        "epsg": "EPSG:4258",
+        "lat": 60.3893421647664,
+        "lon": 5.31707374227811
+      },
+      "oppdateringsdato": "2020-06-15T17:47:47"
+    },
+    {
+      "adressenavn": "Dokkeveien",
+      "adressetekst": "Dokkeveien 1A",
+      "adressetilleggsnavn": null,
+      "adressekode": 10900,
+      "nummer": 1,
+      "bokstav": "A",
+      "kommunenummer": "4601",
+      "kommunenavn": "BERGEN",
+      "gardsnummer": 164,
+      "bruksnummer": 202,
+      "festenummer": 0,
+      "undernummer": null,
+      "bruksenhetsnummer": [
+        "H0101",
+        "H0102",
+        "H0201",
+        "H0202",
+        "H0301",
+        "H0302",
+        "L0101",
+        "L0102",
+        "U0101"
+      ],
+      "objtype": "Vegadresse",
+      "poststed": "BERGEN",
+      "postnummer": "5007",
+      "adressetekstutenadressetilleggsnavn": "Dokkeveien 1A",
+      "stedfestingverifisert": false,
+      "representasjonspunkt": {
+        "epsg": "EPSG:4258",
+        "lat": 60.389463094331,
+        "lon": 5.31689661761139
+      },
+      "oppdateringsdato": "2020-06-15T17:47:47"
+    }
+  ]
+}

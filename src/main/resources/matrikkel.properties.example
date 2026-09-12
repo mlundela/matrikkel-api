@@ -1,0 +1,13 @@
+# Template for src/main/resources/matrikkel.properties (git-ignored).
+#
+# Either copy this file to matrikkel.properties and fill in real values, or leave
+# matrikkel.properties absent and export the equivalent environment variables:
+#
+#   export MATRIKKEL_WS_USERNAME=...
+#   export MATRIKKEL_WS_PASSWORD=...
+#
+# Credentials are for the Kartverket Matrikkel prodtest environment
+# (https://prodtest.matrikkel.no/matrikkelapi/wsapi/v1/).
+
+matrikkel.ws.username=
+matrikkel.ws.password=

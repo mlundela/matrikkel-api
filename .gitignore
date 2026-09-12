@@ -1,0 +1,17 @@
+# --- Secrets: never commit ---
+# Matrikkel SOAP credentials. Copy matrikkel.properties.example and fill in locally,
+# or supply MATRIKKEL_WS_USERNAME / MATRIKKEL_WS_PASSWORD as environment variables.
+src/main/resources/matrikkel.properties
+
+# --- Build output ---
+target/
+
+# --- IDE ---
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# --- OS ---
+.DS_Store
