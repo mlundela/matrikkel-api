@@ -12,11 +12,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(classes = {
         MatrikkelConfig.class,
         MatrikkelClient.class,
-        MatrikkelService.class,
+        MatrikkelServiceImpl.class,
 })
 class MatrikkelAddressServiceIT {
 
-    @Autowired MatrikkelService service;
+    @Autowired MatrikkelServiceImpl service;
 
     @Test
     void name() {

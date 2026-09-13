@@ -1,7 +1,7 @@
 package no.xcello.matrikkel.api;
 
 import no.xcello.matrikkel.core.Section;
-import no.xcello.matrikkel.core.Service;
+import no.xcello.matrikkel.core.MatrikkelService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,9 +13,9 @@ import java.util.List;
 @RestController
 public class Controller {
 
-    private final Service service;
+    private final MatrikkelService service;
 
-    public Controller(Service service) {
+    public Controller(MatrikkelService service) {
         this.service = service;
     }
 
