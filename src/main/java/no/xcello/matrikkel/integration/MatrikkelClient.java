@@ -15,7 +15,6 @@ import no.statkart.matrikkel.matrikkelapi.wsapi.v1.service.adresse.AdresseServic
 import no.statkart.matrikkel.matrikkelapi.wsapi.v1.service.adresse.ServiceException;
 import no.statkart.matrikkel.matrikkelapi.wsapi.v1.service.store.StoreService;
 import no.xcello.matrikkel.core.*;
-import no.xcello.matrikkel.core.Section;
 import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +23,7 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 @Component
-class MatrikkelClient {
+class MatrikkelClient implements MatrikkelService {
 
     private static final Logger log = LoggerFactory.getLogger(MatrikkelClient.class);
 
@@ -68,7 +67,8 @@ class MatrikkelClient {
         return new Fraction(andel.getTeller(), andel.getNevner());
     }
 
-    List<Section> listSections(String matrikkel) {
+    @Override
+    public List<Section> listSections(String matrikkel) {
         final AdresseId adresseId = getAdresseId(matrikkel);
         final AdresseInfoTransfer info = getAdresseInfoTransfer(adresseId);
 

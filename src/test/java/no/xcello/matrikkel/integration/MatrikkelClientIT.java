@@ -19,13 +19,16 @@ import static org.assertj.core.api.Assertions.tuple;
 @SpringBootTest(classes = {
         MatrikkelConfig.class,
         MatrikkelClient.class,
-        MatrikkelServiceImpl.class,
 })
-class MatrikkelAddressServiceIT {
+class MatrikkelClientIT {
 
     private static final int NEVNER = 426;
 
-    @Autowired MatrikkelServiceImpl service;
+    @Autowired MatrikkelClient service;
+
+    private static Fraction fraction(long teller) {
+        return new Fraction(teller, NEVNER);
+    }
 
     @Test
     @DisplayName("Lists all seksjoner for 4601/10900/1/A with brøk and bruksenhetsnummer")
@@ -47,9 +50,5 @@ class MatrikkelAddressServiceIT {
         assertThat(units.stream().mapToLong(s -> s.fraction().teller()).sum())
                 .as("sameiebrøker sum to the whole")
                 .isEqualTo(NEVNER);
-    }
-
-    private static Fraction fraction(long teller) {
-        return new Fraction(teller, NEVNER);
     }
 }

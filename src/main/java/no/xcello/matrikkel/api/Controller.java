@@ -1,7 +1,7 @@
 package no.xcello.matrikkel.api;
 
-import no.xcello.matrikkel.core.Section;
 import no.xcello.matrikkel.core.MatrikkelService;
+import no.xcello.matrikkel.core.Section;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,7 +1,6 @@
 package no.xcello.matrikkel.core;
 
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
