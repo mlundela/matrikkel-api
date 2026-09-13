@@ -1,9 +1,11 @@
 package no.xcello.matrikkel.api;
 
-import no.xcello.matrikkel.core.Address;
-import no.xcello.matrikkel.core.Service;
 import no.xcello.matrikkel.core.Section;
-import org.springframework.web.bind.annotation.*;
+import no.xcello.matrikkel.core.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -17,12 +19,6 @@ public class Controller {
         this.service = service;
     }
 
-    @GetMapping
-    List<Address> search(@RequestParam(name = "query") String query,
-                         @RequestParam(name = "size", defaultValue = "5") int size) {
-        return service.search(query, size);
-    }
-
     @GetMapping("/{knr}/{veinr}/{husnr}/{bokstav}")
     List<Section> listSections(
             @PathVariable("knr") String knr,
@@ -30,7 +26,7 @@ public class Controller {
             @PathVariable("husnr") Integer husnr,
             @PathVariable("bokstav") String bokstav
     ) {
-        return service.listSections(new Address(null, null, null, knr, veinr, husnr, bokstav));
+        return service.listSections(knr + "/" + veinr + "/" + husnr + "/" + bokstav);
     }
 
     @GetMapping("/{knr}/{veinr}/{husnr}/")
@@ -39,6 +35,6 @@ public class Controller {
             @PathVariable("veinr") Integer veinr,
             @PathVariable("husnr") Integer husnr
     ) {
-        return service.listSections(new Address(null, null, null, knr, veinr, husnr, ""));
+        return service.listSections(knr + "/" + veinr + "/" + husnr);
     }
 }

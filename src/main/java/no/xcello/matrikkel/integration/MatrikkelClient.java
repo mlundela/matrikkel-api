@@ -24,15 +24,15 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 @Component
-class MatrikkelWebServiceClient {
+class MatrikkelClient {
 
-    private static final Logger log = LoggerFactory.getLogger(MatrikkelWebServiceClient.class);
+    private static final Logger log = LoggerFactory.getLogger(MatrikkelClient.class);
 
     private final StoreService storeService;
     private final AdresseService adresseService;
     private final MatrikkelContext context;
 
-    MatrikkelWebServiceClient(StoreService storeService, AdresseService adresseService, MatrikkelContext context) {
+    MatrikkelClient(StoreService storeService, AdresseService adresseService, MatrikkelContext context) {
         this.storeService = storeService;
         this.adresseService = adresseService;
         this.context = context;
@@ -68,8 +68,8 @@ class MatrikkelWebServiceClient {
         return new Fraction(andel.getTeller(), andel.getNevner());
     }
 
-    List<Section> listSectionsByAddress(Address address) {
-        final AdresseId adresseId = getAdresseId(address);
+    List<Section> listSections(String matrikkel) {
+        final AdresseId adresseId = getAdresseId(matrikkel);
         final AdresseInfoTransfer info = getAdresseInfoTransfer(adresseId);
 
         for (Object o : info.getBubbleObjects().getItem()) {
@@ -87,7 +87,7 @@ class MatrikkelWebServiceClient {
 
         List<Section> seksjoner = filterSections(info);
         seksjoner.sort(Comparator.comparing(Section::nummer));
-        log.info("Finn seksjoner for adresse: {}", address);
+        log.info("Finn seksjoner for adresse: {}", matrikkel);
         for (Section s : seksjoner) {
             log.info("Fant seksjon: {}", s);
         }
@@ -193,21 +193,23 @@ class MatrikkelWebServiceClient {
         }
     }
 
-    private AdresseId getAdresseId(Address address) {
+    private AdresseId getAdresseId(String matrikkel) {
+        // 4601/10900/1/A
+        final String[] parts = matrikkel.split("/");
         try {
             KommuneIdent bergen = new KommuneIdent();
-            bergen.setKommunenummer(address.kommunenummer());
+            bergen.setKommunenummer(parts[0]);
 
             final VegadresseIdent v = new VegadresseIdent();
             v.setKommuneIdent(bergen);
-            v.setAdressekode(address.veinummer());
-            v.setNummer(address.husnummer());
-            v.setBokstav(address.bokstav().isBlank() ? null : address.bokstav());
+            v.setAdressekode(Integer.parseInt(parts[1]));
+            v.setNummer(Integer.parseInt(parts[2]));
+            v.setBokstav(parts.length == 3 ? null : parts[3]);
 
             return adresseService.findAdresseIdForIdent(v, context);
 
         } catch (ServiceException e) {
-            log.error("Failed to find address ID for address: " + address, e);
+            log.error("Failed to find address ID for address: " + matrikkel, e);
             throw new RuntimeException(e);
         }
     }

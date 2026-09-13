@@ -1,29 +1,21 @@
 package no.xcello.matrikkel.integration;
 
-import no.xcello.matrikkel.core.Address;
-import no.xcello.matrikkel.core.Service;
 import no.xcello.matrikkel.core.Section;
+import no.xcello.matrikkel.core.Service;
 
 import java.util.List;
 
 @org.springframework.stereotype.Service
 public class MatrikkelService implements Service {
 
-    private final MatrikkelSearchClient searchClient;
-    private final MatrikkelWebServiceClient webServiceClient;
+    private final MatrikkelClient webServiceClient;
 
-    MatrikkelService(MatrikkelSearchClient client, MatrikkelWebServiceClient webServiceClient) {
-        this.searchClient = client;
+    MatrikkelService(MatrikkelClient webServiceClient) {
         this.webServiceClient = webServiceClient;
     }
 
     @Override
-    public List<Address> search(String query, int size) {
-        return searchClient.search(query, size);
-    }
-
-    @Override
-    public List<Section> listSections(Address address) {
-        return webServiceClient.listSectionsByAddress(address);
+    public List<Section> listSections(String matrikkelId) {
+        return webServiceClient.listSections(matrikkelId);
     }
 }
