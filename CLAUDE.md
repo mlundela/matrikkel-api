@@ -48,9 +48,14 @@ exclusion. Keep them in sync.
 ## Tests
 
 ```bash
-./mvnw test                                  # runs the unit tests (ControllerTest)
+./mvnw test                                  # runs the unit tests (ControllerTest, MatrikkelClientTest)
 ./mvnw test -Dtest=MatrikkelAddressServiceIT # runs the live integration test
 ```
+
+- **`integration.MatrikkelClientTest`** is a plain Mockito test (no Spring context) that mocks
+  `StoreService`, `AdresseService` and `MatrikkelContext`. It builds real generated SOAP objects
+  (`Seksjon`, `Bruksenhet`, `PersonTinglystEierforhold`, …) as fixtures with small helper methods.
+  Generated types don't implement `equals`, so stubs match ids with `argThat(id -> id.getValue() == …)`.
 
 - **`api.ControllerTest`** is a `@WebMvcTest(Controller.class)` slice with
   `@MockitoBean MatrikkelService`, using `MockMvcTester`. It needs no network or credentials. In

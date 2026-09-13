@@ -1,6 +1,8 @@
 package no.xcello.matrikkel.integration;
 
+import no.xcello.matrikkel.core.Fraction;
 import no.xcello.matrikkel.core.Section;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,7 +10,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
 
+/**
+ * Live test against Matrikkel prodtest. Owners are deliberately not validated, since ownership
+ * changes over time. Seksjoner, sameiebrøk and bruksenhetsnummer are stable.
+ */
 @SpringBootTest(classes = {
         MatrikkelConfig.class,
         MatrikkelClient.class,
@@ -16,11 +23,33 @@ import static org.assertj.core.api.Assertions.assertThat;
 })
 class MatrikkelAddressServiceIT {
 
+    private static final int NEVNER = 426;
+
     @Autowired MatrikkelServiceImpl service;
 
     @Test
-    void name() {
+    @DisplayName("Lists all seksjoner for 4601/10900/1/A with brøk and bruksenhetsnummer")
+    void test1() {
         final List<Section> units = service.listSections("4601/10900/1/A");
-        assertThat(units).isNotEmpty();
+
+        assertThat(units)
+                .extracting(Section::nummer, Section::fraction, Section::bruksenhetNummer)
+                .containsExactly(
+                        tuple(1, brøk(42), "U0101"),
+                        tuple(2, brøk(39), "H0101"),
+                        tuple(3, brøk(53), "H0102"),
+                        tuple(4, brøk(43), "H0201"),
+                        tuple(5, brøk(56), "H0202"),
+                        tuple(6, brøk(43), "H0301"),
+                        tuple(7, brøk(56), "H0302"),
+                        tuple(8, brøk(37), "L0101"),
+                        tuple(9, brøk(57), "L0102"));
+        assertThat(units.stream().mapToLong(s -> s.fraction().teller()).sum())
+                .as("sameiebrøker sum to the whole")
+                .isEqualTo(NEVNER);
+    }
+
+    private static Fraction brøk(long teller) {
+        return new Fraction(teller, NEVNER);
     }
 }
