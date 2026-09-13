@@ -1,4 +1,4 @@
-package no.xcello.matrikkel.model;
+package no.xcello.matrikkel.integration;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 

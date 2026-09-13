@@ -1,4 +1,11 @@
 package no.xcello.matrikkel.core;
 
-public record Person(String name, String id) {
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public record Person(
+        @JsonProperty("navn")
+        String name,
+        @JsonProperty("id")
+        String id
+) {
 }

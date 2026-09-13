@@ -1,4 +1,4 @@
-package no.xcello.matrikkel;
+package no.xcello.matrikkel.integration;
 
 import no.xcello.matrikkel.core.Address;
 import no.xcello.matrikkel.core.Section;
@@ -14,11 +14,11 @@ import static org.assertj.core.api.Assertions.assertThat;
         MatrikkelConfig.class,
         MatrikkelSearchClient.class,
         MatrikkelWebServiceClient.class,
-        MatrikkelAddressService.class,
+        MatrikkelService.class,
 })
 class MatrikkelAddressServiceIT {
 
-    @Autowired MatrikkelAddressService service;
+    @Autowired MatrikkelService service;
 
     @Test
     void name() {

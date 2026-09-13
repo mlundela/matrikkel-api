@@ -1,7 +1,6 @@
-package no.xcello.matrikkel;
+package no.xcello.matrikkel.integration;
 
 import no.xcello.matrikkel.core.Address;
-import no.xcello.matrikkel.model.SearchResult;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -39,7 +38,7 @@ class MatrikkelSearchClient {
                 .toList();
     }
 
-    Address transform(no.xcello.matrikkel.model.Adresse a) {
+    Address transform(MatrikkelAddress a) {
         return new Address(
                 a.postalName(),
                 a.postalNumber(),

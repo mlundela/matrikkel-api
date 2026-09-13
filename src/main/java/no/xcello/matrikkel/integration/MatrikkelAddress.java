@@ -1,8 +1,8 @@
-package no.xcello.matrikkel.model;
+package no.xcello.matrikkel.integration;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 
-public record Adresse(
+public record MatrikkelAddress(
         @JsonAlias("poststed") String postalName,
         @JsonAlias("postnummer") String postalNumber,
         @JsonAlias("adressetekst") String name,

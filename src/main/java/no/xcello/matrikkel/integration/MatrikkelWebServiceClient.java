@@ -1,4 +1,4 @@
-package no.xcello.matrikkel;
+package no.xcello.matrikkel.integration;
 
 import no.statkart.matrikkel.matrikkelapi.wsapi.v1.domain.LocalDate;
 import no.statkart.matrikkel.matrikkelapi.wsapi.v1.domain.MatrikkelBubbleObject;

@@ -18,13 +18,13 @@ public class Controller {
     }
 
     @GetMapping
-    List<Address> søk(@RequestParam(name = "query") String query,
-                      @RequestParam(name = "size", defaultValue = "5") int treffPerSide) {
-        return service.search(query, treffPerSide);
+    List<Address> search(@RequestParam(name = "query") String query,
+                         @RequestParam(name = "size", defaultValue = "5") int size) {
+        return service.search(query, size);
     }
 
     @GetMapping("/{knr}/{veinr}/{husnr}/{bokstav}")
-    List<Section> hentSeksjoner(
+    List<Section> listSections(
             @PathVariable("knr") String knr,
             @PathVariable("veinr") Integer veinr,
             @PathVariable("husnr") Integer husnr,
@@ -34,7 +34,7 @@ public class Controller {
     }
 
     @GetMapping("/{knr}/{veinr}/{husnr}/")
-    List<Section> hentSeksjoner(
+    List<Section> listSections(
             @PathVariable("knr") String knr,
             @PathVariable("veinr") Integer veinr,
             @PathVariable("husnr") Integer husnr

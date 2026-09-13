@@ -1,9 +1,9 @@
-package no.xcello.matrikkel.model;
+package no.xcello.matrikkel.integration;
 
 import java.util.List;
 
 public record SearchResult(
         Metadata metadata,
-        List<Adresse> adresser
+        List<MatrikkelAddress> adresser
 ) {
 }

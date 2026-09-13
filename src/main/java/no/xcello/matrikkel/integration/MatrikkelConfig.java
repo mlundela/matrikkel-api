@@ -1,4 +1,4 @@
-package no.xcello.matrikkel;
+package no.xcello.matrikkel.integration;
 
 import jakarta.xml.ws.BindingProvider;
 import no.statkart.matrikkel.matrikkelapi.wsapi.v1.domain.MatrikkelContext;
